@@ -1,3 +1,4 @@
+const e = require("express");
 const express = require("express");
 const multer = require("multer");
 const { nanoid } = require("nanoid");
@@ -22,17 +23,24 @@ const routerFunction = (db, resource, additionally = () => ({})) => {
 
     router.get("/" + resource, async (req, res) => {
         try {
-            res.send(await mysqlTool.getItems(resource));
+            let data;
+            if (Object.keys(req.params).length) {
+                data = await mysqlTool.getItems(resource);
+            } else {
+                data = await mysqlTool.getItemsByParams(resource, req.query);
+            }
+            res.send(data);
         } catch (error) {
             res.status(400).send(error);
         }
     });
+
     router.get("/" + resource + "/:id", async (req, res) => {
         const data = (await mysqlTool.getItemsById(resource, req.params.id))[0];
         try {
             res.send(data);
         } catch (error) {
-            res.status(400).send(error);
+            res.sendStatus(400).send(error);
         }
     });
 
@@ -65,8 +73,8 @@ const routerFunction = (db, resource, additionally = () => ({})) => {
     });
 
     router.put("/" + resource + "/:id", upload.single("image"), async (req, res) => {
-        const data = { ...req.body, image: req.file ? req.file.filename : null };
         const lastResource = (await mysqlTool.getItemsById(resource, req.params.id))[0];
+        const data = { ...lastResource, ...req.body, image: req.file ? req.file.filename : null };
 
         try {
             data.image || delete data.image;
