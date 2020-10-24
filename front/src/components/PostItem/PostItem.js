@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Alert, AlertTitle } from '@material-ui/lab';
-// import Avatar from '@material-ui/core/Avatar';
+
 import React from 'react';
 import { ImagesUrl } from '../../config';
 
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => (
     }
 ));
 
-const PostItem = ({ post, onDelete }) => {
+const PostItem = ({ post, onDelete, onComment, hide }) => {
     const classes = useStyles();
     return (
         <Box mt={1} bgcolor="lightblue" padding="10px" borderRadius="5px">
@@ -42,7 +41,9 @@ const PostItem = ({ post, onDelete }) => {
                         </Button>
                     </Grid>
                     <Typography variant="subtitle1" component="div">{post.content}</Typography>
-                    <Button variant="outlined">comment</Button>
+                    <Box hidden={hide}>
+                        <Button variant="outlined" onClick={onComment}>comment</Button>
+                    </Box>
                 </Grid>
             </Grid>
         </Box>

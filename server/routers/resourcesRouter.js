@@ -24,7 +24,7 @@ const routerFunction = (db, resource, additionally = () => ({})) => {
     router.get("/" + resource, async (req, res) => {
         try {
             let data;
-            if (Object.keys(req.params).length==0) {
+            if (Object.keys(req.params).length == 0) {
                 data = await mysqlTool.getItems(resource);
             } else {
                 data = await mysqlTool.getItemsByParams(resource, req.query);
@@ -46,6 +46,7 @@ const routerFunction = (db, resource, additionally = () => ({})) => {
 
     router.post("/" + resource, upload.single("image"), async (req, res) => {
         const data = { ...req.body, image: req.file ? req.file.filename : null, ...additionally() };
+        data.id && delete data.id;
 
         try {
             data.image || delete data.image;

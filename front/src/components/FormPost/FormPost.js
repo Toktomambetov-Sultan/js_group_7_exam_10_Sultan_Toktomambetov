@@ -11,8 +11,8 @@ const FormPost = ({ onSubmit, onChange }) => {
                         variant="outlined"
                         margin="normal"
                         required
-                        label="title"
-                        name="Title"
+                        label="Title"
+                        name="title"
                         autoFocus
                         onChange={onChange}
                     />

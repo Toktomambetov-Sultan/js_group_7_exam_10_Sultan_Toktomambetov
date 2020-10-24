@@ -2,7 +2,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import React from "react";
 import Layout from "./components/Layout/Layout";
 import NewsPostPage from "./conatiners/NewsPostPage/NewsPostPage";
-import NewPostsList from "./conatiners/NewPostsList/NewPostsList";
+import NewPostsList from "./conatiners/NewsPostsList/NewsPostsList";
+import OnePostPage from "./conatiners/OnePostPage/OnePostPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Redirect from="/" exact to="newsPosts" />
           <Route path="/newNewsPost" exact component={NewsPostPage} />
           <Route path="/newsPosts" exact component={NewPostsList} />
+          <Route path="/post/:id" exact component={OnePostPage} />
 
         </Switch>
       </Layout>
