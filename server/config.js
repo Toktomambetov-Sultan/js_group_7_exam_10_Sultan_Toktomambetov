@@ -10,5 +10,8 @@ module.exports = {
         password: "root@root",
         database: "news"
     },
-    resources: ["comments", "news_posts"]
+    resources: {
+        "comments": () => ({}),
+        "news_posts": () => ({ publication_date: new Date() })
+    }
 };

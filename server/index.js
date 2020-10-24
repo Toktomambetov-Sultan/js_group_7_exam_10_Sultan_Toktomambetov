@@ -15,8 +15,8 @@ connection.connect((error) => {
 
     app.use(express.json());
 
-    config.resources.forEach(resource => {
-        app.use("/", resourcesRouter(connection, resource));
+    Object.keys(config.resources).forEach(resource => {
+        app.use("/", resourcesRouter(connection, resource, config.resources[resource]));
     });
 
     app.listen(config.port, () => {

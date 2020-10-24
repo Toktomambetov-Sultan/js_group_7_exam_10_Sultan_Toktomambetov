@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-const routerFunction = (db, resource) => {
+const routerFunction = (db, resource, additionally = () => ({})) => {
     const mysqlTool = new MysqlTool(db);
 
     router.get("/" + resource, async (req, res) => {
@@ -37,7 +37,7 @@ const routerFunction = (db, resource) => {
     });
 
     router.post("/" + resource, upload.single("image"), async (req, res) => {
-        const data = { ...req.body, image: req.file ? req.file.filename : null, publication_date: new Date() };
+        const data = { ...req.body, image: req.file ? req.file.filename : null, ...additionally() };
 
         try {
             data.image || delete data.image;
