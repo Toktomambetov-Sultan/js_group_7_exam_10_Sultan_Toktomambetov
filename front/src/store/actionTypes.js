@@ -1,0 +1,5 @@
+export const CHANGE_CURRENT_POST = "CHANGE_CURRENT_MESSAGE";
+export const GET_POSTS = "GET_MESSAGES";
+export const FETCH_REQUEST = "FETCH_REQUEST";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_ERROR = "FETCH_ERROR";

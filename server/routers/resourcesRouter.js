@@ -24,7 +24,7 @@ const routerFunction = (db, resource, additionally = () => ({})) => {
     router.get("/" + resource, async (req, res) => {
         try {
             let data;
-            if (Object.keys(req.params).length) {
+            if (Object.keys(req.params).length==0) {
                 data = await mysqlTool.getItems(resource);
             } else {
                 data = await mysqlTool.getItemsByParams(resource, req.query);
